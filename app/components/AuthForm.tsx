@@ -39,7 +39,8 @@ export const AuthForm = () => {
       setPassword('')
       
       if (error) {
-        // alert(error.message)
+        toast.success("success login")
+        router.push('/dashboard')
         toast.error(error.message)
       } 
     }

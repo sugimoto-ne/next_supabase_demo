@@ -1,34 +1,111 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+BPSの協力会社として横浜を拠点に活動しております、株式会社ECNの杉本です。
+​
+supabaseとNext.jsの情報を仕入れて発信するシリーズで今回はsupabaseの認証をappディレクトリのroute handlerで行う方法について公式のYoutubeチャンネルでちょうどさっきアップロード数秒前になってたので1番ノリでやりたいと思って試してみます。
+​
+https://www.youtube.com/watch?v=KmJN-bEayeY
+​
+## 今回作るもの
+簡単なTODOアプリを作ります。
 
-## Getting Started
+## 目次
+1. プロジェクト立ち上げ+セットアップ
+2. supabaseのセットアップ
+   - todosテーブル作成
+   - auth provderの設定
+   - supabaseクライアントのインストール 
+3. 
+​
+##  プロジェクト立ち上げ+セットアップ
 
-First, run the development server:
+### Nextの準備
+```npx create-next-app demo-app --typescript```
 
-```bash
-npm run dev
-# or
-yarn dev
+​まずはNEXTのインストール
+もちろんtypescriptでやります
+
+### appディレクトリ有効化
+```
+experimental: {
+    appDir: true
+  },
+```
+`next.config.json`に上の内容を追記します。
+appこれでaooディレクトリが有効化されます。
+
+
+### tailwindcss
+https://tailwindcss.com/docs/guides/nextjs
+tailwindのセットアップを行います。
+```
+$ npm install -D tailwindcss postcss autoprefixer
+
+$ npx tailwindcss init -p
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+tailwind.config.js
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+ 
+    // Or if using `src` directory:
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+./syles/global.css
+```
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## supabaseのセットアップ
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+​### プロジェクト作成
+supabaseのセットアップですが各自でプロジェクトを作成していただくか、既存プロジェクトをお使いください🙏
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+https://app.supabase.com/
 
-## Deploy on Vercel
+### auth provderの設定
+auth providerの設定はEmailを有効にします。
+今回はdemoなのでメール認証は切っておきます。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+TODOスクショ
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+### todosテーブル作成
+
+```
+id: uuid型でuid_generate_v4()
+created_at: is Nullableを外す
+title: text型 Nullableを外す
+conpleted: bool defaultにfalse Nullableを外す
+user_id: uuid Nullableを外す authスキーマのusersのidとリレーションを貼る
+​```
+
+### Row Level Security
+
+todosテーブルのrow level securityを設定します。
+
+## まとめ（あってもなくてもいい）
+​
+テキストが入ります
+​
+​
+​
+​
+### --------- 以下固定footer  ------
+株式会社ECNは主にお客様のご要望に合わせたwebサービス、システム開発を承っております。
+クリックしてファ

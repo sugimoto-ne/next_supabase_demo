@@ -2,12 +2,21 @@
 import React from 'react'
 import useStore from '../../store'
 
+import supabase from '../../utils/supabase'
+import { useRouter } from 'next/navigation'
+
 export const Navbar = () => {
   const { loginUser } = useStore()
+  const router = useRouter()
+
+  function signOut() {
+    supabase.auth.signOut()
+    router.push('/')
+  }
 
   return (
     <nav
-      className="relative flex w-full flex-wrap items-center justify-between bg-neutral-900 py-3 text-neutral-200 shadow-lg lg:flex-wrap lg:justify-start"
+      className="relative flex w-full flex-wrap items-center justify-between bg-neutral-900 py-3 text-neutral-200 shadow-lg lg:flex-wrap lg:justify-start h-[68px]"
       data-te-navbar-ref>
       <div className="flex w-full flex-wrap items-center justify-between px-6">
         <button
@@ -36,19 +45,23 @@ export const Navbar = () => {
           id="navbarSupportedContent4"
           data-te-collapse-item>
           <a className="pr-2 text-xl font-semibold text-white" href="#">Navbar</a>
-       
+
           <ul
             className="list-style-none mr-auto flex flex-col pl-0 lg:flex-row"
             data-te-navbar-nav-ref>
-            
+
           </ul>
-     
+
         </div>
 
         <div className="relative flex items-center">
-          {loginUser.email ?? 'unauthed'}
+          <span className='px-4'>
+            {loginUser.email ?? 'unauthed'}
+          </span>
+
+          {loginUser.id && <button onClick={signOut}>ログアウト</button>}
         </div>
-       
+
       </div>
     </nav>
   )
