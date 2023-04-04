@@ -1,16 +1,18 @@
 'use client'
+import { useRouter } from 'next/navigation'
 import { FormEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 
 export const TodoForm = () => {
   const [title, setTitle] = useState<string>("")
+  const router = useRouter()
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const res = await fetch("/dashboard/todos/new", {
       method: 'POST',
       body: JSON.stringify({
         title
-      })
+      }),
     })
 
     const data = await res.json()
@@ -19,13 +21,14 @@ export const TodoForm = () => {
       toast.error("create error")
       return
     }
-
+    router.refresh()
     toast.success(`created: ${data[0].title}`)
     setTitle("")
+
   }
 
   return (
-    <form onSubmit={submitHandler} className="px-3">
+    <form onSubmit={submitHandler}>
       <input
         type="text"
         className="my-2 rounded border border-gray-300 px-3 py-2 text-sm placeholder-gray-500 focus:outline-none"

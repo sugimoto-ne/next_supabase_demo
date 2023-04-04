@@ -3,6 +3,8 @@ import { createRouteHandlerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { headers, cookies } from 'next/headers';
 import { Database } from '../../../../database.types';
 
+export const revalidate = 0
+
 export async function POST(request: Request) {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -26,6 +28,11 @@ export async function POST(request: Request) {
 
   const { title } = await request.json()
   const { data, error } = await supabase.from("todos").insert({ user_id: auth?.data?.session?.user?.id, title }).select('*')
+  console.log('################')
+  console.log(error)
+  console.log(data)
+  console.log('################')
+  
   if (!auth?.data?.session?.user?.id) {
     return new Response(error?.message, {
       status: 500,
