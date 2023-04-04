@@ -60,81 +60,6 @@ export interface Database {
           user_id?: string
         }
       }
-      blog_blog_tags: {
-        Row: {
-          blog_id: number
-          blog_tag_id: number
-          created_at: string | null
-          id: number
-        }
-        Insert: {
-          blog_id: number
-          blog_tag_id: number
-          created_at?: string | null
-          id?: number
-        }
-        Update: {
-          blog_id?: number
-          blog_tag_id?: number
-          created_at?: string | null
-          id?: number
-        }
-      }
-      blog_tags: {
-        Row: {
-          color: string | null
-          created_at: string
-          id: number
-          name: string
-          uuid: string
-        }
-        Insert: {
-          color?: string | null
-          created_at?: string
-          id?: number
-          name: string
-          uuid?: string
-        }
-        Update: {
-          color?: string | null
-          created_at?: string
-          id?: number
-          name?: string
-          uuid?: string
-        }
-      }
-      blogs: {
-        Row: {
-          content: string
-          created_at: string
-          id: number
-          is_publish: boolean
-          title: string
-          updated_at: string | null
-          user_id: string
-          uuid: string
-        }
-        Insert: {
-          content: string
-          created_at?: string
-          id?: number
-          is_publish?: boolean
-          title: string
-          updated_at?: string | null
-          user_id: string
-          uuid?: string
-        }
-        Update: {
-          content?: string
-          created_at?: string
-          id?: number
-          is_publish?: boolean
-          title?: string
-          updated_at?: string | null
-          user_id?: string
-          uuid?: string
-        }
-      }
       todos: {
         Row: {
           created_at: string
@@ -166,13 +91,6 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      insert_blogs_and_blog_tags: {
-        Args: {
-          blogs_data: Json
-          tags_data: Json
-        }
-        Returns: undefined
-      }
     }
     Enums: {
       [_ in never]: never
